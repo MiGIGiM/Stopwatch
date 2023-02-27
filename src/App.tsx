@@ -1,7 +1,6 @@
 import React from 'react';
+import StopWatch from './components/StopWatch';
 
-const App = () => (
-    <h1 className="text-6xl font-bold underline">Hello world!</h1>
-);
+const App = () => <StopWatch />;
 
 export default App;
