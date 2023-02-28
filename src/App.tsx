@@ -9,7 +9,7 @@ const App = () => {
         min: 0,
     });
     return (
-        <div className="flex h-screen items-center justify-around">
+        <div className="mt-6 flex h-screen flex-col items-center space-y-6 md:mt-0 md:flex-row md:justify-center md:space-x-28 md:space-y-0">
             <StopWatch alarm={alarmTime} />
             <AlarmForm setAlarm={(data) => setAlarmTime(data)} />
         </div>
