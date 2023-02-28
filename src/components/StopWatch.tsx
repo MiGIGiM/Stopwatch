@@ -1,4 +1,3 @@
-// eslint-disable-next-line object-curly-newline
 import React, { FC, useEffect, useRef, useState } from 'react';
 import useSound from 'use-sound';
 import { Timer } from '../types/timer';
@@ -16,6 +15,7 @@ const StopWatch: FC<IStopWatchProps> = ({ alarm }) => {
     const interval = useRef<number>(0);
     const [play, { stop }] = useSound(alarmSfx, {
         volume: 0.15,
+        interrupt: true,
     });
     const [timer, setTimer] = useState<Timer>({
         ms: 0,
@@ -31,13 +31,11 @@ const StopWatch: FC<IStopWatchProps> = ({ alarm }) => {
             ) {
                 play();
                 setIsOpen(true);
-                const stopSound = setTimeout(() => {
-                    stop();
-                }, 1000);
-                clearTimeout(stopSound);
             }
         }
     };
+
+    if (!isOpen) stop();
 
     useEffect(() => {
         if (isRunning) {
@@ -81,7 +79,10 @@ const StopWatch: FC<IStopWatchProps> = ({ alarm }) => {
                 <div className="btn-group">
                     <button
                         type="button"
-                        className="btn-primary btn"
+                        className={`btn-primary btn ${
+                            isRunning ? 'btn-disabled' : ''
+                        }`}
+                        disabled={isRunning}
                         onClick={() => setIsRunning(true)}
                     >
                         Start
@@ -103,8 +104,11 @@ const StopWatch: FC<IStopWatchProps> = ({ alarm }) => {
                 </div>
                 {alarm.min !== 0 && alarm.sec !== 0 && (
                     <p className="badge-info badge  badge-lg">
-                        ⏰ Alarm set to {alarm.min} minutes with {alarm.sec}{' '}
-                        seconds{' '}
+                        ⏰ Alarm set to
+                        {` ${alarm.min} `}
+                        minutes with
+                        {` ${alarm.sec} `}
+                        seconds
                     </p>
                 )}
             </div>

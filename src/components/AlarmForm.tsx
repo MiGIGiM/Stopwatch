@@ -1,6 +1,6 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 import { Timer } from '../types/timer';
 
 export interface IAlarFormProps {
@@ -13,7 +13,8 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
         handleSubmit,
         formState: { errors },
     } = useForm<Timer>();
-    const onSubmit = (data: Timer) => setAlarm(data);
+
+    const onSubmit: SubmitHandler<Timer> = (data: Timer) => setAlarm(data);
 
     return (
         <form
@@ -22,10 +23,11 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
         >
             <h2>Setup an alarm</h2>
             <div className="form-control w-full max-w-xs">
-                <label className="label">
+                <span className="label">
                     <span className="label-text">How many minutes?</span>
-                </label>
+                </span>
                 <input
+                    id="minutes_input"
                     type="number"
                     placeholder="Minutes"
                     defaultValue={0}
@@ -35,7 +37,7 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
                         errors.min ? 'input-error' : ''
                     }`}
                 />
-                <label className="label">
+                <label className="label" htmlFor="minutes_input">
                     {errors.min && (
                         <p className="label-text-alt text-error">
                             ⚠️ Invalid time value.
@@ -44,10 +46,11 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
                 </label>
             </div>
             <div className="form-control w-full max-w-xs">
-                <label className="label">
+                <span className="label">
                     <span className="label-text">How many seconds?</span>
-                </label>
+                </span>
                 <input
+                    id="seconds_input"
                     type="number"
                     placeholder="Seconds"
                     defaultValue={0}
@@ -57,7 +60,7 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
                         errors.sec ? 'input-error' : ''
                     }`}
                 />
-                <label className="label">
+                <label className="label" htmlFor="seconds_input">
                     {errors.sec && (
                         <p className="label-text-alt text-error">
                             ⚠️ Invalid time value.
@@ -65,7 +68,7 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
                     )}
                 </label>
             </div>
-            <input type="submit" className="btn btn-block" />
+            <input type="submit" className="btn-block btn" />
         </form>
     );
 };
