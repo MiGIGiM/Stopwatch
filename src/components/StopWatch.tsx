@@ -104,7 +104,7 @@ const StopWatch: FC<IStopWatchProps> = ({ alarm }) => {
                     </button>
                 </div>
                 {alarm.min !== 0 && alarm.sec !== 0 && (
-                    <p className="badge-info badge  badge-lg">
+                    <p className="badge-info badge badge-md md:badge-lg">
                         ⏰ Alarm set to
                         {` ${alarm.min} `}
                         minutes with

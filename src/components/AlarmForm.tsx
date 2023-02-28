@@ -12,7 +12,12 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<Timer>();
+    } = useForm<Timer>({
+        defaultValues: {
+            min: '0',
+            sec: '0',
+        },
+    });
 
     const onSubmit: SubmitHandler<Timer> = (data: Timer) => setAlarm(data);
 
@@ -30,9 +35,8 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
                     id="minutes_input"
                     type="number"
                     placeholder="Minutes"
-                    defaultValue={0}
                     aria-invalid={errors.min ? 'true' : 'false'}
-                    {...register('min', { required: true, min: 0 })}
+                    {...register('min', { required: true, min: 0, value: 0 })}
                     className={`input-bordered input w-full max-w-xs focus:ring-secondary-focus ${
                         errors.min ? 'input-error' : ''
                     }`}
@@ -53,9 +57,13 @@ const AlarmForm: FC<IAlarFormProps> = ({ setAlarm }) => {
                     id="seconds_input"
                     type="number"
                     placeholder="Seconds"
-                    defaultValue={0}
                     aria-invalid={errors.sec ? 'true' : 'false'}
-                    {...register('sec', { required: true, min: 0, max: 59 })}
+                    {...register('sec', {
+                        required: true,
+                        min: 0,
+                        max: 59,
+                        value: 0,
+                    })}
                     className={`input-bordered input w-full max-w-xs  focus:ring-secondary-focus ${
                         errors.sec ? 'input-error' : ''
                     }`}
