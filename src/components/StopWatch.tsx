@@ -59,7 +59,7 @@ const StopWatch: FC<IStopWatchProps> = ({ alarm }) => {
 
     return (
         <>
-            <div className="flex flex-col items-center space-y-4 md:w-1/4">
+            <div className="flex w-[56%] flex-col items-center space-y-4 md:w-1/4">
                 <div
                     className={`w-full rounded-lg border-4 p-5 font-orbitron text-2xl transition-shadow duration-200 ${
                         isRunning
