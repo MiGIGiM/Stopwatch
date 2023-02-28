@@ -49,9 +49,9 @@ const StopWatch: FC<IStopWatchProps> = ({ alarm }) => {
 
     useEffect(() => {
         setTimer({
-            ms: (time / 10) % 100,
-            sec: Math.floor((time / 1000) % 60),
-            min: Math.floor((time / 60000) % 60),
+            ms: `0${(time / 10) % 100}`.slice(-2),
+            sec: `0${Math.floor((time / 1000) % 60)}`.slice(-2),
+            min: `0${Math.floor((time / 60000) % 60)}`.slice(-2),
         });
 
         showAlert();
@@ -59,22 +59,23 @@ const StopWatch: FC<IStopWatchProps> = ({ alarm }) => {
 
     return (
         <>
-            <div className="flex w-[56%] flex-col items-center space-y-4 md:w-1/4">
+            <div className="flex flex-col items-center space-y-4 md:w-1/4">
                 <div
-                    className={`w-full rounded-lg border-4 p-5 font-orbitron text-2xl transition-shadow duration-200 ${
+                    className={`w-full rounded-lg border-4 p-5 font-orbitron text-3xl transition-shadow duration-200 md:text-2xl ${
                         isRunning
                             ? 'border-primary-focus shadow-lg shadow-primary-focus'
                             : 'border-primary'
                     }`}
                 >
-                    <span className="countdown text-6xl">
+                    <span className="hidden text-6xl md:countdown">
                         <span style={{ '--value': timer.min }} />
                     </span>
-                    :
-                    <span className="countdown text-6xl">
+                    <span className="md:hidden">{timer.min}</span>:
+                    <span className="md:hidden">{timer.sec}</span>
+                    <span className="hidden text-6xl md:countdown">
                         <span style={{ '--value': timer.sec }} />
                     </span>
-                    <span>{timer.ms}</span>
+                    .<span>{timer.ms}</span>
                 </div>
                 <div className="btn-group">
                     <button
